@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import 'primeflex/primeflex.css';
 import './checkout-step1.css';
 
@@ -9,19 +12,28 @@ import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
 
 const CheckoutStep1: React.FC = () => {
-    const [name, setName] = useState<string>('');
-    const [value, setValue] = useState<number | null>(null);
     const [convertedCoin, setConvertedCoin] = useState<number>(0);
+    const navigate = useNavigate();
+
+    const initialValues = {
+        name: '',
+        value: 0,
+    };
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required('Nome do Personagem é obrigatório'),
+        value: Yup.number().min(1, 'Valor da Doação deve ser maior que zero').required('Valor da Doação é obrigatório'),
+    });
+
+    const handleSubmit = (values: typeof initialValues) => {
+        navigate('/checkout/requirements');
+    };
 
     useEffect(() => {
-        if (value !== null) {
-            setConvertedCoin(Math.round(value / 0.08));
+        if (initialValues.value !== null) {
+            setConvertedCoin(Math.round(initialValues.value / 0.08));
         }
-    }, [value]);
-
-    const handleValueChange = (e: { value: number | null }) => {
-        setValue(e.value);
-    };
+    }, [initialValues.value]);
 
     return (
         <div className="p-grid p-nogutter checkout-container">
@@ -32,26 +44,47 @@ const CheckoutStep1: React.FC = () => {
                 <div className="logo-top-container">
                     <img src={logoImage} alt="White Kingdom Logo" className="logo-image" />
                 </div>
-                <div className="form-content">
-                    <div className="form-group">
-                        <div className="p-field">
-                            <span className="p-float-label">
-                                <InputText id="characterName" value={name} onChange={(e) => setName(e.target.value)} style={{ width: '100%' }} className="custom-input" />
-                                <label htmlFor="characterName">Nome do Personagem*</label>
-                            </span>
-                        </div>
-                        <div className="p-field">
-                            <span className="p-float-label">
-                                <InputNumber id="donationValue" value={value} onChange={handleValueChange} mode="currency" currency="BRL" style={{ width: '100%' }} className="custom-input" />
-                                <label htmlFor="donationValue">Valor da Doação*</label>
-                            </span>
-                        </div>
-                        <p className="description">
-                            Agradecemos a sua doação! Com o valor de R$ {value ?? 0},00 você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
-                            A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{value ? convertedCoin : 0}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
-                        </p>
-                    </div>
-                </div>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ setFieldValue, values }) => (
+                        <Form className="form-content">
+                            <div className="form-group">
+                                <div className="p-field">
+                                    <span className="p-float-label">
+                                        <Field as={InputText} id="characterName" name="name" className="custom-input" style={{ width: '100%' }} />
+                                        <label htmlFor="characterName">Nome do Personagem*</label>
+                                    </span>
+                                    <ErrorMessage name="name" component="div" className="error-message" />
+                                </div>
+                                <div className="p-field">
+                                    <span className="p-float-label">
+                                        <InputNumber
+                                            id="donationValue"
+                                            value={values.value}
+                                            onValueChange={(e) => setFieldValue('value', e.value)}
+                                            mode="currency"
+                                            currency="BRL"
+                                            style={{ width: '100%' }}
+                                            className="custom-input"
+                                        />
+                                        <label htmlFor="donationValue">Valor da Doação*</label>
+                                    </span>
+                                    <ErrorMessage name="value" component="div" className="error-message" />
+                                </div>
+                                <p className="description">
+                                    Agradecemos a sua doação! Com o valor de R$ {values.value ?? 0},00 você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
+                                    A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{values.value ? Math.round(values.value / 0.08) : 0}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
+                                </p>
+                            </div>
+                            <div className="button-container">
+                                <button type="submit" className="custom-button">PRÓXIMO</button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
                 <div className="logo-bottom-container">
                     <img src={companyLogo} alt="Company Logo" className="company-logo" />
                 </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 import { Calendar } from 'primereact/calendar';
+import { useNavigate } from 'react-router-dom';
 import 'primeflex/primeflex.css';
 import './checkout-step2.css';
 
@@ -21,7 +22,17 @@ export default function CheckoutStep2() {
     const [logradouro, setLogradouro] = useState<string>('');
     const [numero, setNumero] = useState<string>('');
     const [sexo, setSexo] = useState<string>('');
-    const [paymentMethod, setPaymentMethod] = useState<string>('');
+    const [paymentMethod, setPaymentMethod] = useState<string>('creditCard');
+
+    const navigate = useNavigate();
+
+    const handleCancelClick = () => {
+        navigate('/checkout');
+    };
+
+    const handleNextClick = () => {
+        navigate('/checkout/payment');
+    };
 
     return (
         <div className="checkout-step2-container">
@@ -133,9 +144,9 @@ export default function CheckoutStep2() {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button className="p-button p-component p-button-outlined p-button-secondary">CANCELAR</button>
-                        <button className="p-button p-component p-button-outlined p-button-primary">PRÓXIMO</button>
+                    <div className="button-step2-container">
+                        <button className="custom-button secondary" onClick={handleCancelClick}>CANCELAR</button>
+                        <button className="custom-button primary" onClick={handleNextClick}>PRÓXIMO</button>
                     </div>
                     <div className="logo-step2-bottom-container">
                         <img src={companyLogo} alt="Company Logo" className="company-step2-logo" />
