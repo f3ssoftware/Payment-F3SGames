@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import 'primeflex/primeflex.css';
-import './checkout-step1.css'; // Assuming you have some custom styles
+import './checkout-step1.css';
 
 import womanImage from '../../../../Shared/imgs/image 2.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
@@ -33,22 +33,24 @@ const CheckoutStep1: React.FC = () => {
                     <img src={logoImage} alt="White Kingdom Logo" className="logo-image" />
                 </div>
                 <div className="form-content">
-                    <div className="p-field">
-                        <span className="p-float-label">
-                            <InputText id="characterName" value={name} onChange={(e) => setName(e.target.value)} style={{ width: '100%' }} className="custom-input" />
-                            <label htmlFor="characterName">Nome do Personagem*</label>
-                        </span>
+                    <div className="form-group">
+                        <div className="p-field">
+                            <span className="p-float-label">
+                                <InputText id="characterName" value={name} onChange={(e) => setName(e.target.value)} style={{ width: '100%' }} className="custom-input" />
+                                <label htmlFor="characterName">Nome do Personagem*</label>
+                            </span>
+                        </div>
+                        <div className="p-field">
+                            <span className="p-float-label">
+                                <InputNumber id="donationValue" value={value} onChange={handleValueChange} mode="currency" currency="BRL" style={{ width: '100%' }} className="custom-input" />
+                                <label htmlFor="donationValue">Valor da Doação*</label>
+                            </span>
+                        </div>
+                        <p className="description">
+                            Agradecemos a sua doação! Com o valor de R$ {value ?? 0},00 você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
+                            A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{value ? convertedCoin : 0}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
+                        </p>
                     </div>
-                    <div className="p-field">
-                        <span className="p-float-label">
-                            <InputNumber id="donationValue" value={value} onChange={handleValueChange} mode="currency" currency="BRL" style={{ width: '100%' }} className="custom-input" />
-                            <label htmlFor="donationValue">Valor da Doação*</label>
-                        </span>
-                    </div>
-                    <p className="description">
-                        Agradecemos a sua doação! Com o valor de R$ {value ?? 0},00 você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
-                        A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{convertedCoin}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
-                    </p>
                 </div>
                 <div className="logo-bottom-container">
                     <img src={companyLogo} alt="Company Logo" className="company-logo" />
