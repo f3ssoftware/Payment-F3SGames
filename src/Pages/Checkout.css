@@ -1,0 +1,12 @@
+@media screen and (max-width: 570px){
+    .title{
+        display: none;
+    }
+}
+
+
+
+.formStyle{
+    margin-left: 3%;
+    margin-right: 3%;
+}
