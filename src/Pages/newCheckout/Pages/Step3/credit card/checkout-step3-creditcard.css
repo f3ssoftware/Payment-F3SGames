@@ -1,0 +1,122 @@
+.checkout-creditcard-container {
+    height: 100vh;
+}
+
+.image-creditcard-container {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.woman-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.form-creditcard-container {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+    height: 100%;
+}
+
+.logo-top-creditcard-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo-image {
+    max-width: 200px;
+    height: auto;
+}
+
+.form-creditcard-content {
+    flex-grow: 1;
+}
+
+.custom-creditcard-input .p-inputtext,
+.custom-creditcard-input .p-inputnumber,
+.p-inputtext.p-component.custom-creditcard-input {
+    border: 1px solid black;
+}
+
+.payment-creditcard-method {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.payment-creditcard-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.button-creditcard-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.logo-creditcard-bottom-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.company-creditcard-logo {
+    max-width: 100px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .image-creditcard-container {
+        display: none;
+    }
+
+    .form-creditcard-container {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+
+    .form-creditcard-content {
+        margin-top: 3%;
+    }
+
+    .logo-image {
+        max-width: 200px;
+    }
+
+    .company-creditcard-logo {
+        max-width: 200px;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .logo-top-creditcard-container {
+        height: auto;
+    }
+
+    .logo-image {
+        max-width: 150px;
+    }
+
+    .form-creditcard-content {
+        margin-top: 5%;
+    }
+
+    .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .company-creditcard-logo {
+        max-width: 150px;
+        margin-bottom: 2rem;
+    }
+}
