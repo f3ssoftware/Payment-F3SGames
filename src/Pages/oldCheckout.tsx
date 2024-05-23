@@ -3,7 +3,7 @@ import './Checkout.css'
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 import { InputNumber } from 'primereact/inputnumber';
-import { BrazilState } from '../enums/BrazilState';
+import { BrazilState } from '../Shared/enums/BrazilState';
 import { Dropdown } from 'primereact/dropdown';
 import axios from 'axios';
 import { Button } from 'primereact/button';

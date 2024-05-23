@@ -1,0 +1,150 @@
+.checkout-container {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+    overflow: hidden; /* Ensure the image doesn't exceed the container */
+}
+
+.woman-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.form-container {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+    height: 100%;
+    background: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    overflow: hidden; /* Ensure content doesn't exceed the container */
+}
+
+.logo-top-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.logo-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    width: 100%;
+    margin-top: 1rem; 
+    padding: 0;
+    flex-grow: 1; /* Allow the content to grow and take available space */
+}
+
+.p-field {
+    margin-bottom: 1.5rem;
+    width: calc(100% - 2rem); /* Adjust width to account for padding */
+    margin-left: 1rem;
+    margin-right: 1rem; 
+}
+
+.custom-input .p-inputtext,
+.custom-input .p-inputnumber,
+.p-inputtext.p-component.custom-input {
+    border: 1px solid black;
+    padding: 0.75rem; 
+    border-radius: 4px; 
+    width: 100%;
+}
+
+.description {
+    font-size: 1rem;
+    margin-top: 1rem;
+    text-align: justify;
+    line-height: 1.6;
+    padding: 0 1rem;
+}
+
+.highlight {
+    color: orange;
+    font-weight: bold;
+}
+
+.logo-bottom-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    margin-top: auto; 
+}
+
+.company-logo {
+    width: 100%;
+    max-width: 150px; 
+    height: auto; 
+    margin-bottom: 1rem; 
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        display: none;
+    }
+
+    .form-container {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+
+    .form-content {
+        margin-top: 3%;
+    }
+
+    .logo-image {
+        max-width: 200px; 
+    }
+
+    .company-logo {
+        max-width: 200px; 
+    }
+}
+
+@media (max-width: 375px) {
+    .logo-top-container {
+        height: auto; 
+    }
+
+    .logo-image {
+        max-width: 150px; 
+    }
+
+    .form-content {
+        margin-top: 5%; 
+    }
+
+    .p-field {
+        margin-bottom: 1rem; 
+    }
+
+    .description {
+        font-size: 0.9rem; 
+    }
+
+    .company-logo {
+        max-width: 150px; 
+    }
+}
