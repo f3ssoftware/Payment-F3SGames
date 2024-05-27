@@ -13,6 +13,7 @@ import companyLogo from '../../../../Shared/imgs/Group 71.svg';
 
 const CheckoutStep1: React.FC = () => {
     const [convertedCoin, setConvertedCoin] = useState<number>(0);
+    const [donationValue, setDonationValue] = useState<number>(0);
     const navigate = useNavigate();
 
     const initialValues = {
@@ -30,10 +31,12 @@ const CheckoutStep1: React.FC = () => {
     };
 
     useEffect(() => {
-        if (initialValues.value !== null) {
-            setConvertedCoin(Math.round(initialValues.value / 0.08));
-        }
-    }, [initialValues.value]);
+        setConvertedCoin(Math.round(donationValue / 0.08));
+    }, [donationValue]);
+
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    };
 
     return (
         <div className="p-grid p-nogutter checkout-container">
@@ -64,7 +67,10 @@ const CheckoutStep1: React.FC = () => {
                                         <InputNumber
                                             id="donationValue"
                                             value={values.value}
-                                            onValueChange={(e) => setFieldValue('value', e.value)}
+                                            onValueChange={(e) => {
+                                                setFieldValue('value', e.value);
+                                                setDonationValue(e.value ?? 0); // Atualiza o estado local de donationValue
+                                            }}
                                             mode="currency"
                                             currency="BRL"
                                             style={{ width: '100%' }}
@@ -75,8 +81,8 @@ const CheckoutStep1: React.FC = () => {
                                     <ErrorMessage name="value" component="div" className="error-message" />
                                 </div>
                                 <p className="description">
-                                    Agradecemos a sua doação! Com o valor de R$ {values.value ?? 0},00 você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
-                                    A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{values.value ? Math.round(values.value / 0.08) : 0}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
+                                    Agradecemos a sua doação! Com o valor de {formatCurrency(values.value ?? 0)} você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
+                                    A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{convertedCoin}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
                                 </p>
                             </div>
                             <div className="button-container">

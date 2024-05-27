@@ -29,7 +29,6 @@
     background: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
 }
 
 .logo-top-step2-container {
@@ -43,17 +42,6 @@
     width: 100%;
     max-width: 200px;
     height: auto;
-}
-
-.form-step2-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    margin-top: 1rem;
-    padding: 0 1rem;
-    flex-grow: 1;
 }
 
 .custom-step2-input .p-inputtext,
@@ -70,15 +58,38 @@
     text-align: center;
 }
 
+.payment-step2-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .payment-step2-option {
     margin-top: 0.5rem;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
 }
 
 .payment-step2-option label {
     margin-left: 0.5rem;
+}
+
+.custom-radio-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gender-label-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.gender-options-container {
+    display: flex;
+    align-items: center;
+    margin-left: -0.2rem;
 }
 
 .button-step2-container {
@@ -143,6 +154,9 @@
         max-width: 200px;
         margin-bottom: 2rem;
     }
+    .company-step2-logo{
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 375px) {
@@ -165,5 +179,12 @@
     .company-step2-logo {
         max-width: 150px;
         margin-bottom: 2rem;
+    }
+
+    .logo-step2-bottom-container{
+        margin-top: 1rem;
+    }
+    .company-step2-logo{
+        margin-top: 1rem;
     }
 }
