@@ -1,15 +1,10 @@
-
-
-import womanImage from '../../../../../Shared/imgs/image 2.svg';
-import logoImage from '../../../../../Shared/imgs/image 1.svg';
-import companyLogo from '../../../../../Shared/imgs/Group 71.svg';
+import React from 'react';
 
 export default function CheckoutStep3CreditCard() {
-
-
     return (
-        <div>
-           
+        <div className="form-content">
+            <h1>Formulário de Cartão de Crédito</h1>
+            {/* Coloque o formulário de cartão de crédito aqui */}
         </div>
     );
 }

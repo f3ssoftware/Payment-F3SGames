@@ -46,8 +46,8 @@ export default function CheckoutStep2() {
     });
 
     const handleSubmit = (values: typeof initialValues) => {
-        console.log(values);
-        navigate('/checkout/payment');
+        const queryParams = new URLSearchParams({ paymentMethod: values.paymentMethod }).toString();
+        navigate(`/checkout/payment?${queryParams}`);
     };
 
     const handleCancelClick = () => {
