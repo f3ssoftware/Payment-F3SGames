@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckoutStep3Pix from '../pix/checkout-step3-pix';
 import CheckoutStep3CreditCard from '../credit card/checkout-step3-creditcard';
+import './checkout-step3.css'
 
 import womanImage from '../../../../../Shared/imgs/image 2.svg';
 import logoImage from '../../../../../Shared/imgs/image 1.svg';
@@ -40,7 +41,7 @@ export default function CheckoutStep3() {
                     <img src={logoImage} alt="White Kingdom Logo" className="logo-image" />
                 </div>
                 <div className="payment-step3-method">
-                    <h3 className="payment-title">Escolha um método de pagamento</h3>
+                    <h3 className="step3-payment-title">Escolha um método de pagamento</h3>
                     <div className="grid">
                         <div className="col-4 md:col-3" />
                         <div className="payment-step3-options">

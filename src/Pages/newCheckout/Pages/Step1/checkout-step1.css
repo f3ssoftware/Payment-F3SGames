@@ -43,7 +43,7 @@
 
 .logo-image {
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
     height: auto;
 }
 
@@ -139,7 +139,7 @@
     }
 
     .logo-image {
-        max-width: 200px;
+        max-width: 250px; 
     }
 
     .company-logo {
@@ -154,7 +154,7 @@
     }
 
     .logo-image {
-        max-width: 150px;
+        max-width: 200px; 
     }
 
     .form-content {

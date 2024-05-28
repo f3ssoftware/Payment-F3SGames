@@ -1,62 +1,49 @@
-.checkout-container {
-    height: 100vh;
-    max-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image-container {
-    flex: 0 0 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    overflow: hidden;
-}
-
-.woman-image {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.form-container {
-    flex: 0 0 40%;
+.form-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 2rem;
-    height: 100%;
-    background: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.logo-top-container {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    padding-bottom: 1rem;
-}
-
-.logo-image {
     width: 100%;
-    max-width: 200px;
-    height: auto;
+    margin-top: 1rem;
+    padding: 0 1rem;
+    flex-grow: 1;
 }
 
-.logo-bottom-container {
+.custom-step3-input {
+    border: 1px solid black;
+    padding: 0.75rem;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.button-step3-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-top: auto;
-    margin-bottom: 2rem;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
 }
 
-.company-logo {
-    width: 100%;
-    max-width: 150px;
-    height: auto;
+.custom-button {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.custom-button.secondary {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+}
+
+.custom-button.primary {
+    background-color: black;
+    color: white;
 }
