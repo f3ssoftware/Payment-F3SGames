@@ -6,14 +6,20 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'primeflex/primeflex.css';
 import './checkout-step1.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import womanImage from '../../../../Shared/imgs/image 2.svg';
+import { Dialog } from 'primereact/dialog';
+import womanImage from '../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
 
 const CheckoutStep1: React.FC = () => {
     const [convertedCoin, setConvertedCoin] = useState<number>(0);
     const [donationValue, setDonationValue] = useState<number>(0);
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+    const [playerData, setPlayerData] = useState<any>(null);
     const navigate = useNavigate();
 
     const initialValues = {
@@ -26,8 +32,16 @@ const CheckoutStep1: React.FC = () => {
         value: Yup.number().min(1, 'Valor da Doação deve ser maior que zero').required('Valor da Doação é obrigatório'),
     });
 
-    const handleSubmit = (values: typeof initialValues) => {
-        navigate('/checkout/requirements');
+    const handleSubmit = async (values: typeof initialValues) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/players/${values.name}`);
+            if (response.data) {
+                setPlayerData(response.data);
+                setShowConfirmation(true);
+            }
+        } catch (error) {
+            toast.error('Nome do personagem não encontrado. Por favor, verifique e tente novamente.');
+        }
     };
 
     useEffect(() => {
@@ -38,10 +52,15 @@ const CheckoutStep1: React.FC = () => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
     };
 
+    const confirmPlayer = () => {
+        setShowConfirmation(false);
+        navigate('/checkout/requirements');
+    };
+
     return (
         <div className="p-grid p-nogutter checkout-container">
             <div className="p-col-12 p-md-7 image-container">
-                <img src={womanImage} alt="Woman smiling while giving her credit card" className="woman-image" />
+                <img src={womanImage} alt="Druid doing business" className="woman-image" />
             </div>
             <div className="p-col-12 p-md-5 form-container">
                 <div className="logo-top-container">
@@ -69,7 +88,7 @@ const CheckoutStep1: React.FC = () => {
                                             value={values.value}
                                             onValueChange={(e) => {
                                                 setFieldValue('value', e.value);
-                                                setDonationValue(e.value ?? 0); // Atualiza o estado local de donationValue
+                                                setDonationValue(e.value ?? 0);
                                             }}
                                             mode="currency"
                                             currency="BRL"
@@ -95,6 +114,15 @@ const CheckoutStep1: React.FC = () => {
                     <img src={companyLogo} alt="Company Logo" className="company-logo" />
                 </div>
             </div>
+            <Dialog header="Confirme seu personagem" visible={showConfirmation} onHide={() => setShowConfirmation(false)} modal>
+                {playerData && (
+                    <div>
+                        <p><strong>Nome:</strong> {playerData.name}</p>
+                        <p><strong>Level:</strong> {playerData.level}</p>
+                        <button onClick={confirmPlayer} className="custom-button">CONFIRMAR</button>
+                    </div>
+                )}
+            </Dialog>
         </div>
     );
 };

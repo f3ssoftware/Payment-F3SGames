@@ -29,7 +29,7 @@ export default function CheckoutStep3CreditCard() {
         // This logic should be implemented after we have an API or something to send to the Pagbank API.
     };
     const handleCancelClick = () => {
-        navigate('/checkout');  // Navegar para o Step 1
+        navigate('/checkout'); 
     };
 
     return (

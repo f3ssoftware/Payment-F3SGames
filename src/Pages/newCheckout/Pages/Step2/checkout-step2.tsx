@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import 'primeflex/primeflex.css';
 import './checkout-step2.css';
 
-import womanImage from '../../../../Shared/imgs/image 2.svg';
+import womanImage from '../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
 

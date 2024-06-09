@@ -10,7 +10,7 @@ const AppRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        <Route path='/' element={<CheckoutStep1 />} />
         <Route path='/checkout' element={<CheckoutStep1 />} />
         <Route path='/checkout/requirements' element={<CheckoutStep2 />} />
         <Route path='/checkout/payment' element={<CheckoutStep3 />} />

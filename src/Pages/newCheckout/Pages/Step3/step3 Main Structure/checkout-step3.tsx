@@ -4,7 +4,7 @@ import CheckoutStep3Pix from '../pix/checkout-step3-pix';
 import CheckoutStep3CreditCard from '../credit card/checkout-step3-creditcard';
 import './checkout-step3.css'
 
-import womanImage from '../../../../../Shared/imgs/image 2.svg';
+import womanImage from '../../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../../Shared/imgs/Group 71.svg';
 
