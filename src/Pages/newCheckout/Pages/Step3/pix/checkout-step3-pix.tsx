@@ -156,8 +156,8 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             <Dialog header="Cancelar Doação" visible={showConfirmation} onHide={cancelCancel} modal>
                 <p>Tem certeza que deseja cancelar a doação?</p>
                 <div className="confirmation-buttons" style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem',}}>
-                    <Button label="Sim" icon="pi pi-check" onClick={confirmCancel} autoFocus style={{background: 'white', color: 'black', border: '1px solid black'}} />
-                    <Button label="Não" icon="pi pi-times" onClick={cancelCancel} className="p-button-secondary" style={{background: 'black'}}/>
+                    <Button label="Sim" icon="pi pi-check" onClick={confirmCancel} style={{background: 'white', color: 'black', border: '1px solid black'}} />
+                    <Button label="Não" icon="pi pi-times" onClick={cancelCancel}  autoFocus className="p-button-secondary" style={{background: 'black'}}/>
                 </div>
             </Dialog>
         </div>
