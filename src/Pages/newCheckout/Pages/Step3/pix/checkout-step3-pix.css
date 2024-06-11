@@ -32,6 +32,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
 }
 
 .logo-top-container {
@@ -78,6 +79,7 @@
     padding: 0.75rem;
     border-radius: 4px;
 }
+
 .payment-method {
     margin-bottom: 2rem;
     text-align: center;
@@ -141,6 +143,15 @@
     height: auto;
 }
 
+.back-button {
+    position: absolute;
+    left: 1rem;
+    z-index: 100;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .image-container {
         display: none;
@@ -161,7 +172,7 @@
 
     .company-logo {
         max-width: 200px;
-        margin-bottom: 2rem; /* Adicione mais margem inferior */
+        margin-bottom: 2rem;
     }
 }
 
@@ -188,6 +199,6 @@
 
     .company-logo {
         max-width: 150px;
-        margin-bottom: 2rem; 
+        margin-bottom: 2rem;
     }
 }

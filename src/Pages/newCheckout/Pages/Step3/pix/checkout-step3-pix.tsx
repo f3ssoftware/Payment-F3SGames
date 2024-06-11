@@ -6,6 +6,9 @@ import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCheckout } from '../../../../../context/CheckoutContext';
+import { useNavigate } from 'react-router-dom';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 interface PaymentData {
     player_id: number;
@@ -32,6 +35,8 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
     const [pixCode, setPixCode] = useState('');
     const [qrCodeUrl, setQrCodeUrl] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const generatePixCode = async () => {
@@ -39,9 +44,9 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             try {
                 const phoneNumber = paymentData.customer.phone.replace(/\D/g, '');
                 const formattedPhone = {
-                    country: '55', // Código do país do Brasil
-                    area: phoneNumber.slice(0, 2), // Primeiros dois dígitos como DDD
-                    number: phoneNumber.slice(2), // Restante como número do telefone
+                    country: '55',
+                    area: phoneNumber.slice(0, 2),
+                    number: phoneNumber.slice(2),
                     type: 'mobile',
                 };
 
@@ -56,8 +61,8 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                     },
                     address: {
                         street: paymentData.address.logradouro,
-                        number: paymentData.address.numero.toString(), // Certifica-se de que é uma string
-                        complement: paymentData.address.complemento || 'N/A', // Valor padrão para complemento
+                        number: paymentData.address.numero.toString(),
+                        complement: paymentData.address.complemento || 'N/A',
                         locality: paymentData.address.bairro,
                         city: paymentData.address.municipio,
                         region_code: paymentData.address.estado,
@@ -70,7 +75,7 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                 console.log('Response data', response.data);
 
                 setPixCode(response.data.qr_codes[0].text);
-                const qrCodeLink = response.data.qr_codes[0].links[0].href; // Obter o primeiro link do array
+                const qrCodeLink = response.data.qr_codes[0].links[0].href;
                 setQrCodeUrl(qrCodeLink);
             } catch (error: any) {
                 console.error('Error generating PIX code:', error);
@@ -95,8 +100,24 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
         });
     };
 
+    const handleBackClick = () => {
+        setShowConfirmation(true);
+    };
+
+    const confirmCancel = () => {
+        setShowConfirmation(false);
+        navigate('/checkout');
+    };
+
+    const cancelCancel = () => {
+        setShowConfirmation(false);
+    };
+
     return (
         <div className="form-content">
+            <button className="back-button" onClick={handleBackClick}>
+                <i className="pi pi-arrow-left" style={{ fontSize: '1.2rem', marginTop: '5rem' }}></i>
+            </button>
             <div className="qr-code-container">
                 {loading ? (
                     <Oval height={50} width={50} color="#4fa94d" />
@@ -132,6 +153,13 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                 </div>
             )}
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar closeOnClick pauseOnHover />
+            <Dialog header="Cancelar Doação" visible={showConfirmation} onHide={cancelCancel} modal>
+                <p>Tem certeza que deseja cancelar a doação?</p>
+                <div className="confirmation-buttons" style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
+                    <Button label="Sim" icon="pi pi-check" onClick={confirmCancel} autoFocus style={{background: 'white', color: 'black', border: '1px solid black'}} />
+                    <Button label="Não" icon="pi pi-times" onClick={cancelCancel} className="p-button-secondary" style={{background: 'black'}}/>
+                </div>
+            </Dialog>
         </div>
     );
 }
