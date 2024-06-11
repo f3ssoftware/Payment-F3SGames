@@ -9,11 +9,13 @@ import './checkout-step1.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useCheckout } from '../../../../context/CheckoutContext'; 
 import { Dialog } from 'primereact/dialog';
 import womanImage from '../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
+
+console.log('API URL:', process.env.REACT_APP_API_URL);
 
 const CheckoutStep1: React.FC = () => {
     const [convertedCoin, setConvertedCoin] = useState<number>(0);
@@ -21,6 +23,7 @@ const CheckoutStep1: React.FC = () => {
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
     const [playerData, setPlayerData] = useState<any>(null);
     const navigate = useNavigate();
+    const { setPaymentData } = useCheckout();
 
     const initialValues = {
         name: '',
@@ -37,6 +40,12 @@ const CheckoutStep1: React.FC = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/players/${values.name}`);
             if (response.data) {
                 setPlayerData(response.data);
+                setPaymentData({
+                    player_id: response.data.id, 
+                    player_name: response.data.name,
+                    player_level: response.data.level,
+                    donation_value: values.value
+                });
                 setShowConfirmation(true);
             }
         } catch (error) {

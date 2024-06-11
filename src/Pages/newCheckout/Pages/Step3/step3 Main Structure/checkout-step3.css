@@ -2,6 +2,7 @@
     height: 100vh;
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden; /* Impede a rolagem na página principal */
 }
 
 .image-container {
@@ -29,6 +30,8 @@
     background: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    overflow-y: auto; /* Adiciona a barra de rolagem */
+    position: relative;
 }
 
 .logo-top-container {
@@ -100,15 +103,16 @@
 .logo-bottom-container {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     margin-top: auto;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .company-logo {
     width: 100%;
     max-width: 150px;
     height: auto;
+    margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -119,10 +123,14 @@
     .form-container {
         flex: 1 0 100%;
         width: 100%;
+        padding: 1rem;
+        box-shadow: none;
+        overflow-y: auto; /* Adiciona a barra de rolagem */
     }
 
     .form-content {
         margin-top: 3%;
+        flex-grow: 1;
     }
 
     .logo-image {
@@ -131,7 +139,7 @@
 
     .company-logo {
         max-width: 200px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
     .company-logo {
         margin-top: 1rem;
@@ -149,6 +157,7 @@
 
     .form-content {
         margin-top: 5%;
+        flex-grow: 1;
     }
 
     .p-field {
@@ -157,11 +166,11 @@
 
     .company-logo {
         max-width: 150px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     .logo-bottom-container {
-        margin-top: 1rem;
+        margin-top: auto; /* Ajustado para posicionar a logo corretamente */
     }
     .company-logo {
         margin-top: 1rem;

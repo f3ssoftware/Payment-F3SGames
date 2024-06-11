@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckoutStep3Pix from '../pix/checkout-step3-pix';
 import CheckoutStep3CreditCard from '../credit card/checkout-step3-creditcard';
-import './checkout-step3.css'
+import './checkout-step3.css';
 
 import womanImage from '../../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../../Shared/imgs/Group 71.svg';
+import { useCheckout } from '../../../../../context/CheckoutContext';
 
 export default function CheckoutStep3() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { paymentData } = useCheckout();
     const initialPaymentMethod = new URLSearchParams(location.search).get('paymentMethod') || 'creditCard';
     const [paymentMethod, setPaymentMethod] = useState<string>(initialPaymentMethod);
 
@@ -20,10 +22,14 @@ export default function CheckoutStep3() {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     }, [paymentMethod, location.pathname, navigate]);
 
+    useEffect(() => {
+        console.log('Payment data on Step 3:', paymentData);
+    }, [paymentData]);
+
     const renderContent = () => {
         switch (paymentMethod) {
             case 'pix':
-                return <CheckoutStep3Pix />;
+                return <CheckoutStep3Pix paymentData={paymentData} />;
             case 'creditCard':
                 return <CheckoutStep3CreditCard />;
             default:
@@ -43,7 +49,7 @@ export default function CheckoutStep3() {
                 <div className="payment-step3-method">
                     <h3 className="step3-payment-title">Escolha um método de pagamento</h3>
                     <div className="grid">
-                        <div className="col-4 md:col-3" />
+                        <div className="col-3" />
                         <div className="payment-step3-options">
                             <div className="payment-step3-option">
                                 <input

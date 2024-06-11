@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import dotenv from 'dotenv';
+import { CheckoutProvider } from './context/CheckoutContext';
 
 dotenv.config();
 
@@ -14,8 +15,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
-    <ToastContainer />
+    <CheckoutProvider>
+      <App />
+      <ToastContainer />
+    </CheckoutProvider>
   </React.StrictMode>
 );
 
