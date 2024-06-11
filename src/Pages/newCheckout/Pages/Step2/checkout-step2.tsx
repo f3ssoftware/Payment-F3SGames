@@ -185,7 +185,7 @@ export default function CheckoutStep2() {
                                 </div>
                                 <div className="col-6 md:col-3" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <Calendar id="birthdate" value={values.birthdate} onChange={(e) => setFieldValue('birthdate', e.value)} className="custom-step2-input" dateFormat="dd/mm/yy" />
+                                        <Calendar id="birthdate" value={values.birthdate} viewDate={new Date(2000, 0, 1)} onChange={(e) => setFieldValue('birthdate', e.value)} className="custom-step2-input" dateFormat="dd/mm/yy" />
                                         <label htmlFor="birthdate">Nascimento*</label>
                                     </span>
                                     <ErrorMessage name="birthdate" component="div" className="error-message" />
