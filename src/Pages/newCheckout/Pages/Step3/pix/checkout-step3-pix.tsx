@@ -151,7 +151,7 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                     />
                     <p className="waiting-payment">Aguardando Pagamento...</p>
                 </div>
-            )}
+            )}  
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar closeOnClick pauseOnHover />
             <Dialog header="Cancelar Doação" visible={showConfirmation} onHide={cancelCancel} modal>
                 <p>Tem certeza que deseja cancelar a doação?</p>
