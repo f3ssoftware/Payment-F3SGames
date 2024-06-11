@@ -141,8 +141,8 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             {(qrCodeUrl || pixCode) && (
                 <div className="waiting-payment-container">
                     <Oval
-                        height={23}
-                        width={23}
+                        height={20}
+                        width={20}
                         color="black"
                         ariaLabel="oval-loading"
                         secondaryColor="gray"
@@ -155,7 +155,7 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar closeOnClick pauseOnHover />
             <Dialog header="Cancelar Doação" visible={showConfirmation} onHide={cancelCancel} modal>
                 <p>Tem certeza que deseja cancelar a doação?</p>
-                <div className="confirmation-buttons" style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
+                <div className="confirmation-buttons" style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem',}}>
                     <Button label="Sim" icon="pi pi-check" onClick={confirmCancel} autoFocus style={{background: 'white', color: 'black', border: '1px solid black'}} />
                     <Button label="Não" icon="pi pi-times" onClick={cancelCancel} className="p-button-secondary" style={{background: 'black'}}/>
                 </div>
