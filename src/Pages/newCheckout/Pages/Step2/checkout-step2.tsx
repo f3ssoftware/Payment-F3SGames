@@ -206,7 +206,7 @@ export default function CheckoutStep2() {
                                             options={brazilStatesOptions} 
                                             onChange={(e) => setFieldValue('estado', e.value)} 
                                             className="custom-step2-input" 
-                                            panelStyle={{ width: '100%' }} 
+                                            style={{ width: '100%' }} 
                                         />
                                         <label htmlFor="estado">Estado*</label>
                                     </span>
