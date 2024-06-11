@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.24.0",
-    "dotenv": "^16.4.5",
     "formik": "^2.4.6",
     "primeflex": "^3.3.1",
     "primeicons": "^5.0.0",
@@ -14,7 +13,7 @@
     "react-dom": "^18.0.0",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.23.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.5",
     "stream-browserify": "^3.0.0",
     "typescript": "^5.4.5",
@@ -22,9 +21,9 @@
     "yup": "^1.4.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -57,6 +56,6 @@
     "crypto-browserify": "^3.12.0",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
-    "react-app-rewired": "^2.2.1"
+    "webpack-cli": "^5.1.4"
   }
 }
