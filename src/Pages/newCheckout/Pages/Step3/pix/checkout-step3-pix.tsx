@@ -31,9 +31,11 @@ interface PaymentData {
 export default function CheckoutStep3Pix({ paymentData }: { paymentData: PaymentData }) {
     const [pixCode, setPixCode] = useState('');
     const [qrCodeUrl, setQrCodeUrl] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const generatePixCode = async () => {
+            setLoading(true);
             try {
                 const phoneNumber = paymentData.customer.phone.replace(/\D/g, '');
                 const formattedPhone = {
@@ -75,6 +77,8 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                 if (error.response) {
                     console.error('Response data:', error.response.data);
                 }
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -87,14 +91,20 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
 
     const handlePixCodeClick = () => {
         navigator.clipboard.writeText(pixCode).then(() => {
-            toast.success('Código PIX copiado para a área de transferência');
+            toast.success('Código PIX copiado com sucesso');
         });
     };
 
     return (
         <div className="form-content">
             <div className="qr-code-container">
-                {qrCodeUrl ? <img src={qrCodeUrl} alt="QR Code" /> : <p>QR Code não encontrado.</p>}
+                {loading ? (
+                    <Oval height={50} width={50} color="#4fa94d" />
+                ) : qrCodeUrl ? (
+                    <img src={qrCodeUrl} alt="QR Code" />
+                ) : (
+                    <p>QR Code não encontrado.</p>
+                )}
             </div>
             <div className="p-field">
                 <label htmlFor="pixCode">PIX Copia e Cola</label>
@@ -107,18 +117,20 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
                     onClick={handlePixCodeClick}
                 ></textarea>
             </div>
-            <div className="waiting-payment-container">
-                <Oval
-                    height={23}
-                    width={23}
-                    color="black"
-                    ariaLabel="oval-loading"
-                    secondaryColor="gray"
-                    strokeWidth={2}
-                    strokeWidthSecondary={2}
-                />
-                <p className="waiting-payment">Aguardando Pagamento...</p>
-            </div>
+            {(qrCodeUrl || pixCode) && (
+                <div className="waiting-payment-container">
+                    <Oval
+                        height={23}
+                        width={23}
+                        color="black"
+                        ariaLabel="oval-loading"
+                        secondaryColor="gray"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                    />
+                    <p className="waiting-payment">Aguardando Pagamento...</p>
+                </div>
+            )}
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar closeOnClick pauseOnHover />
         </div>
     );

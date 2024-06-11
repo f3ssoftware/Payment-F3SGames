@@ -2,16 +2,23 @@ import React from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'primeflex/primeflex.css';
 import './checkout-step2.css';
-
 import womanImage from '../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
 import { useCheckout } from '../../../../context/CheckoutContext';
+import { BrazilState } from '../../../../Shared/enums/BrazilState';
+import axios from 'axios';
+
+const brazilStatesOptions = Object.keys(BrazilState).map((key) => ({
+    label: BrazilState[key as keyof typeof BrazilState],
+    value: BrazilState[key as keyof typeof BrazilState],
+}));
 
 export default function CheckoutStep2() {
     const navigate = useNavigate();
@@ -24,12 +31,12 @@ export default function CheckoutStep2() {
         cpf: '',
         birthdate: null,
         cep: '',
-        estado: '', 
+        estado: '',
         municipio: '',
         bairro: '',
         logradouro: '',
         numero: '',
-        complemento: '', 
+        complemento: '',
         sexo: '',
         paymentMethod: 'pix',
     };
@@ -41,12 +48,12 @@ export default function CheckoutStep2() {
         cpf: Yup.string().required('CPF é obrigatório'),
         birthdate: Yup.date().nullable().required('Nascimento é obrigatório').typeError('Data de Nascimento inválida'),
         cep: Yup.string().required('CEP é obrigatório'),
-        estado: Yup.string().required('Estado é obrigatório'), // Validação do novo campo
+        estado: Yup.string().required('Estado é obrigatório'),
         municipio: Yup.string().required('Município é obrigatório'),
         bairro: Yup.string().required('Bairro é obrigatório'),
         logradouro: Yup.string().required('Logradouro é obrigatório'),
         numero: Yup.number().typeError('Número deve ser um valor numérico').required('Número é obrigatório'),
-        complemento: Yup.string(), // Validação do novo campo (opcional)
+        complemento: Yup.string(),
         sexo: Yup.string().required('Sexo é obrigatório'),
         paymentMethod: Yup.string().required('Método de pagamento é obrigatório'),
     });
@@ -77,6 +84,28 @@ export default function CheckoutStep2() {
 
     const handleCancelClick = () => {
         navigate('/checkout');
+    };
+
+    const handleCepBlur = async (e: React.FocusEvent<HTMLInputElement>, setFieldValue: any) => {
+        const cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            try {
+                const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = response.data;
+                console.log('CEP data:', data);
+
+                if (data && !data.erro) {
+                    setFieldValue('logradouro', data.logradouro);
+                    setFieldValue('bairro', data.bairro);
+                    setFieldValue('municipio', data.localidade);
+                    setFieldValue('estado', data.uf);
+                } else {
+                    console.error('CEP não encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar o CEP:', error);
+            }
+        }
     };
 
     return (
@@ -126,14 +155,14 @@ export default function CheckoutStep2() {
                                 </div>
                             </div>
                             <div className="grid p-fluid">
-                                <div className="col-12 md:col-7" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-12 md:col-6" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="name" name="name" className="custom-step2-input" />
                                         <label htmlFor="name">Nome Completo*</label>
                                     </span>
                                     <ErrorMessage name="name" component="div" className="error-message" />
                                 </div>
-                                <div className="col-12 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-12 md:col-6" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="email" name="email" className="custom-step2-input" />
                                         <label htmlFor="email">Email*</label>
@@ -161,21 +190,30 @@ export default function CheckoutStep2() {
                                     </span>
                                     <ErrorMessage name="birthdate" component="div" className="error-message" />
                                 </div>
-                                <div className="col-6 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <InputMask id="cep" mask="99999-999" unmask value={values.cep} onChange={(e) => setFieldValue('cep', e.value)} className="custom-step2-input" />
+                                        <InputMask id="cep" mask="99999-999" unmask value={values.cep} onChange={(e) => setFieldValue('cep', e.value)} onBlur={(e) => handleCepBlur(e, setFieldValue)} className="custom-step2-input" />
                                         <label htmlFor="cep">CEP*</label>
                                     </span>
                                     <ErrorMessage name="cep" component="div" className="error-message" />
                                 </div>
-                                <div className="col-6 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <Field as={InputText} id="estado" name="estado" className="custom-step2-input" />
+                                        <Dropdown 
+                                            id="estado" 
+                                            name="estado" 
+                                            value={values.estado} 
+                                            options={brazilStatesOptions} 
+                                            onChange={(e) => setFieldValue('estado', e.value)} 
+                                            className="custom-step2-input" 
+                                            panelStyle={{ width: '100%' }} 
+                                        />
                                         <label htmlFor="estado">Estado*</label>
                                     </span>
                                     <ErrorMessage name="estado" component="div" className="error-message" />
                                 </div>
-                                <div className="col-6 md:col-7" style={{ marginTop: "0.5rem" }}>
+
+                                <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="municipio" name="municipio" className="custom-step2-input" />
                                         <label htmlFor="municipio">Município*</label>
@@ -196,21 +234,21 @@ export default function CheckoutStep2() {
                                     </span>
                                     <ErrorMessage name="logradouro" component="div" className="error-message" />
                                 </div>
-                                <div className="col-4 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-4 md:col-2" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="numero" name="numero" type="number" className="custom-step2-input" />
                                         <label htmlFor="numero">Número*</label>
                                     </span>
                                     <ErrorMessage name="numero" component="div" className="error-message" />
                                 </div>
-                                <div className="col-8 md:col-7" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-8 md:col-6" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="complemento" name="complemento" className="custom-step2-input" />
                                         <label htmlFor="complemento">Complemento</label>
                                     </span>
                                     <ErrorMessage name="complemento" component="div" className="error-message" />
                                 </div>
-                                <div className="col-12 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-12 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <div className="gender-label-container">
                                         <label className="gender-label">Sexo*</label>
                                     </div>

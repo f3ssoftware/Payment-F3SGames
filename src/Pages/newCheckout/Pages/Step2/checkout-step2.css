@@ -46,11 +46,15 @@
 
 .custom-step2-input .p-inputtext,
 .custom-step2-input .p-inputnumber,
-.p-inputtext.p-component.custom-step2-input {
+.p-inputtext.p-component.custom-step2-input
+{
     border: 1px solid black;
     padding: 0.75rem;
     border-radius: 4px;
     width: 100%;
+}
+.p-dropdown .p-dropdown-trigger{
+    border: 1px solid black;
 }
 
 .payment-step2-method {
