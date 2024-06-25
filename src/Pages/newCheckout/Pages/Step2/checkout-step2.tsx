@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 import { Calendar } from 'primereact/calendar';
@@ -23,6 +23,10 @@ const brazilStatesOptions = Object.keys(BrazilState).map((key) => ({
 export default function CheckoutStep2() {
     const navigate = useNavigate();
     const { setPaymentData } = useCheckout();
+
+    const [localPhone, setLocalPhone] = useState('');
+    const [localCpf, setLocalCpf] = useState('');
+    const [localCep, setLocalCep] = useState('');
 
     const initialValues = {
         name: '',
@@ -122,7 +126,7 @@ export default function CheckoutStep2() {
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ setFieldValue, values }) => (
+                    {({ setFieldValue, values, errors, touched }) => (
                         <Form className="step-2-form">
                             <div className="payment-step2-method">
                                 <h3>Escolha um método de pagamento</h3>
@@ -171,33 +175,67 @@ export default function CheckoutStep2() {
                                 </div>
                                 <div className="col-12 md:col-5" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <InputMask id="phone" mask="(99) 99999-9999" unmask value={values.phone} onChange={(e) => setFieldValue('phone', e.value)} className="custom-step2-input" />
+                                        <InputMask
+                                            id="phone"
+                                            mask="(99) 99999-9999"
+                                            unmask
+                                            value={localPhone}
+                                            onChange={(e) => setLocalPhone(e.value)}
+                                            onBlur={() => setFieldValue('phone', localPhone)}
+                                            className={`custom-step2-input ${errors.phone && touched.phone ? 'p-invalid' : ''}`}
+                                        />
                                         <label htmlFor="phone">Telefone*</label>
                                     </span>
                                     <ErrorMessage name="phone" component="div" className="error-message" />
                                 </div>
                                 <div className="col-12 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <InputMask id="cpf" mask="999.999.999-99" unmask value={values.cpf} onChange={(e) => setFieldValue('cpf', e.value)} className="custom-step2-input" />
+                                        <InputMask
+                                            id="cpf"
+                                            mask="999.999.999-99"
+                                            unmask
+                                            value={localCpf}
+                                            onChange={(e) => setLocalCpf(e.value)}
+                                            onBlur={() => setFieldValue('cpf', localCpf)}
+                                            className={`custom-step2-input ${errors.cpf && touched.cpf ? 'p-invalid' : ''}`}
+                                        />
                                         <label htmlFor="cpf">CPF*</label>
                                     </span>
                                     <ErrorMessage name="cpf" component="div" className="error-message" />
                                 </div>
                                 <div className="col-6 md:col-3" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <Calendar id="birthdate" value={values.birthdate} viewDate={new Date(2000, 0, 1)} onChange={(e) => setFieldValue('birthdate', e.value)} className="custom-step2-input" dateFormat="dd/mm/yy" />
+                                        <Calendar
+                                            id="birthdate"
+                                            value={values.birthdate}
+                                            viewDate={new Date(2000, 0, 1)}
+                                            onChange={(e) => setFieldValue('birthdate', e.value)}
+                                            className="custom-step2-input"
+                                            dateFormat="dd/mm/yy"
+                                        />
                                         <label htmlFor="birthdate">Nascimento*</label>
                                     </span>
                                     <ErrorMessage name="birthdate" component="div" className="error-message" />
                                 </div>
                                 <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
-                                        <InputMask id="cep" mask="99999-999" unmask value={values.cep} onChange={(e) => setFieldValue('cep', e.value)} onBlur={(e) => handleCepBlur(e, setFieldValue)} className="custom-step2-input" />
+                                        <InputMask
+                                            id="cep"
+                                            mask="99999-999"
+                                            unmask
+                                            value={localCep}
+                                            onChange={(e) => setLocalCep(e.value)}
+                                            onBlur={(e) => {
+                                                setFieldValue('cep', localCep);
+                                                handleCepBlur(e, setFieldValue);
+                                            }}
+                                            className={`custom-step2-input ${errors.cep && touched.cep ? 'p-invalid' : ''}`}
+                                        />
                                         <label htmlFor="cep">CEP*</label>
                                     </span>
                                     <ErrorMessage name="cep" component="div" className="error-message" />
                                 </div>
-                                <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-6 md:col-4" style={{ marginTop: "0.5rem" }}>    
                                     <span className="p-float-label">
                                         <Dropdown 
                                             id="estado" 
