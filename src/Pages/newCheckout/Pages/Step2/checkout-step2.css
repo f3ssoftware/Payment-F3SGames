@@ -1,0 +1,194 @@
+.checkout-step2-container {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-step2-container {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.woman-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.form-step2-container {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.logo-top-step2-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.logo-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.custom-step2-input .p-inputtext,
+.custom-step2-input .p-inputnumber,
+.p-inputtext.p-component.custom-step2-input
+{
+    border: 1px solid black;
+    padding: 0.75rem;
+    border-radius: 4px;
+    width: 100%;
+}
+.p-dropdown .p-dropdown-trigger{
+    border: 1px solid black;
+}
+
+.payment-step2-method {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.payment-step2-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.payment-step2-option {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.payment-step2-option label {
+    margin-left: 0.5rem;
+}
+
+.custom-radio-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gender-label-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.gender-options-container {
+    display: flex;
+    align-items: center;
+    margin-left: -0.2rem;
+}
+
+.button-step2-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.custom-button {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.custom-button.secondary {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+}
+
+.custom-button.primary {
+    background-color: black;
+    color: white;
+}
+
+.logo-step2-bottom-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: auto;
+    margin-bottom: 2rem;
+}
+
+.company-step2-logo {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .image-step2-container {
+        display: none;
+    }
+
+    .form-step2-container {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+
+    .form-step2-content {
+        margin-top: 3%;
+    }
+
+    .logo-image {
+        max-width: 250px;
+    }
+
+    .company-step2-logo {
+        max-width: 200px;
+        margin-bottom: 2rem;
+    }
+    .company-step2-logo{
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .logo-top-step2-container {
+        height: auto;
+    }
+
+    .logo-image {
+        max-width: 200px;
+    }
+
+    .form-step2-content {
+        margin-top: 5%;
+    }
+
+    .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .company-step2-logo {
+        max-width: 150px;
+        margin-bottom: 2rem;
+    }
+
+    .logo-step2-bottom-container{
+        margin-top: 1rem;
+    }
+    .company-step2-logo{
+        margin-top: 1rem;
+    }
+}

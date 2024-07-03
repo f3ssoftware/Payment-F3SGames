@@ -4,14 +4,22 @@
   "private": true,
   "dependencies": {
     "axios": "^0.24.0",
+    "card-validator": "^10.0.0",
+    "formik": "^2.4.6",
     "primeflex": "^3.3.1",
     "primeicons": "^5.0.0",
     "primereact": "^8.7.3",
+    "process": "^0.11.10",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.23.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.0"
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^10.0.5",
+    "stream-browserify": "^3.0.0",
+    "typescript": "^5.4.5",
+    "web-vitals": "^2.1.0",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,10 +46,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.2",
     "@types/react-dom": "^18.3.0",
-    "@types/testing-library__react": "^10.2.0"
+    "@types/testing-library__react": "^10.2.0",
+    "@types/webpack": "^5.28.5",
+    "crypto-browserify": "^3.12.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "webpack-cli": "^5.1.4"
   }
 }

@@ -1,0 +1,204 @@
+.checkout-container {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.woman-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.form-container {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: scroll;
+    position: relative;
+}
+
+.logo-top-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.logo-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0 1rem;
+    flex-grow: 1;
+}
+
+.p-field {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.custom-input .p-inputtext,
+.custom-input .p-inputnumber,
+.p-inputtext.p-component.custom-input {
+    border: 1px solid black;
+    padding: 0.75rem;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.custom-textarea {
+    width: 100%;
+    border: 1px solid black;
+    padding: 0.75rem;
+    border-radius: 4px;
+}
+
+.payment-method {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.payment-option {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.payment-option label {
+    margin-left: 0.5rem;
+}
+
+.qr-code-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.qr-code-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.waiting-payment-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.waiting-payment {
+    font-size: 1rem;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+.highlight {
+    color: orange;
+    font-weight: bold;
+}
+
+.logo-bottom-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: auto;
+    margin-bottom: 2rem;
+}
+
+.company-logo {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+.back-button {
+    position: absolute;
+    left: 1rem;
+    z-index: 100;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        display: none;
+    }
+
+    .form-container {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+
+    .form-content {
+        margin-top: 3%;
+    }
+
+    .logo-image {
+        max-width: 200px;
+    }
+
+    .company-logo {
+        max-width: 200px;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .logo-top-container {
+        height: auto;
+    }
+
+    .logo-image {
+        max-width: 150px;
+    }
+
+    .form-content {
+        margin-top: 5%;
+    }
+
+    .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+    }
+
+    .company-logo {
+        max-width: 150px;
+        margin-bottom: 2rem;
+    }
+}
