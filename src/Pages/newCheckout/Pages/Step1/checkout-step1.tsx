@@ -39,12 +39,14 @@ const CheckoutStep1: React.FC = () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/players/${values.name}`);
             if (response.data) {
+                console.log(response.data);
                 setPlayerData(response.data);
                 setPaymentData({
                     player_id: response.data.id,
                     player_name: response.data.name,
                     player_level: response.data.level,
-                    donation_value: values.value
+                    donation_value: values.value,
+                    amount: Math.round(values.value),  // Garantir que amount é um inteiro positivo
                 });
                 setShowConfirmation(true);
             }

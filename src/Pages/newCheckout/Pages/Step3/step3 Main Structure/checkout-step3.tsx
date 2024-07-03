@@ -31,7 +31,7 @@ export default function CheckoutStep3() {
             case 'pix':
                 return <CheckoutStep3Pix paymentData={paymentData} />;
             case 'creditCard':
-                return <CheckoutStep3CreditCard />;
+                return <CheckoutStep3CreditCard/>;
             default:
                 return null;
         }

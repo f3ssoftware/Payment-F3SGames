@@ -49,7 +49,7 @@ export default function CheckoutStep2() {
         name: Yup.string().required('Nome Completo é obrigatório'),
         email: Yup.string().email('Email inválido').required('Email é obrigatório'),
         phone: Yup.string().required('Telefone é obrigatório'),
-        cpf: Yup.string().required('CPF é obrigatório'),
+        cpf: Yup.string().required('CPF é obrigatório').matches(/^\d{11}$/, 'CPF deve ter 11 dígitos'),
         birthdate: Yup.date().nullable().required('Nascimento é obrigatório').typeError('Data de Nascimento inválida'),
         cep: Yup.string().required('CEP é obrigatório'),
         estado: Yup.string().required('Estado é obrigatório'),
@@ -63,18 +63,20 @@ export default function CheckoutStep2() {
     });
 
     const handleSubmit = (values: typeof initialValues) => {
+        const formattedCpf = localCpf.toString();
+        console.log('Formatted CPF:', formattedCpf);
         setPaymentData((prevData: any) => ({
             ...prevData,
             customer: {
                 name: values.name,
                 email: values.email,
                 phone: values.phone,
-                cpf: values.cpf,
+                cpf: formattedCpf,
                 birthdate: values.birthdate,
             },
             address: {
                 logradouro: values.logradouro,
-                numero: values.numero,
+                numero: values.numero.toString(),
                 complemento: values.complemento || '',
                 bairro: values.bairro,
                 municipio: values.municipio,
