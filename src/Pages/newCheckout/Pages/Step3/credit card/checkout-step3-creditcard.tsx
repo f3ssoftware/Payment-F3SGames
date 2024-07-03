@@ -114,6 +114,10 @@ const CheckoutStep3CreditCard = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/payments/credit_card`, requestData);
       console.log('Response data', response.data);
+
+      if (response.data.status === 'created') {
+        toast.current?.show({ severity: 'success', summary: 'Sucesso', detail: 'Pedido criado com sucesso.' });
+      }
     } catch (error) {
       console.error('Error generating credit card payment:', error);
       if (axios.isAxiosError(error) && error.response) {
