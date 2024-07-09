@@ -6,6 +6,34 @@
     flex-wrap: wrap;
 }
 
+.top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.flags-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.flag-icon {
+    width: 30px;
+    height: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+ 
+}
+
+.logo-top-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+
 .image-container {
     flex: 0 0 60%;
     display: flex;

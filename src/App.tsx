@@ -7,11 +7,9 @@ import AppRoutes from './Routes/routes';
 
 const App: React.FC = () => {
   return (
-
-      <div style={{ height: '100vh' }}>
-        <AppRoutes/>
-      </div>
-  
+    <div style={{ height: '100vh' }}>
+      <AppRoutes/>
+    </div>
   );
 }
 
