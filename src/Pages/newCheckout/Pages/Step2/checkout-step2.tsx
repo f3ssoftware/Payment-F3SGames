@@ -125,10 +125,10 @@ export default function CheckoutStep2() {
 
     return (
         <div className="checkout-step2-container">
-            <div className="p-col-12 p-md-7 image-step2-container">
+            <div className="image-step2-container">
                 <img src={womanImage} alt="Woman smiling while giving her credit card" className="woman-image" />
             </div>
-            <div className="p-col-12 p-md-5 form-step2-container">
+            <div className="form-step2-container">
                 <div className="top-container">
                     <div className="flags-container">
                         <img src={brazilFlag} alt="Português" className="flag-icon" onClick={() => changeLanguage('pt')} />
@@ -191,7 +191,7 @@ export default function CheckoutStep2() {
                                     </span>
                                     <ErrorMessage name="email" component="div" className="error-message" />
                                 </div>
-                                <div className="col-12 md:col-5" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-12 md:col-4 sm:col-5" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <InputMask
                                             id="phone"
@@ -221,7 +221,7 @@ export default function CheckoutStep2() {
                                     </span>
                                     <ErrorMessage name="cpf" component="div" className="error-message" />
                                 </div>
-                                <div className="col-6 md:col-3" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-6 md:col-4   sm:col-3" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Calendar
                                             id="birthdate"
@@ -290,14 +290,14 @@ export default function CheckoutStep2() {
                                     </span>
                                     <ErrorMessage name="logradouro" component="div" className="error-message" />
                                 </div>
-                                <div className="col-4 md:col-2" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-4 md:col-3 sm:col-2" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="numero" name="numero" type="number" className="custom-step2-input" />
                                         <label htmlFor="numero">{t('Numero')}*</label>
                                     </span>
                                     <ErrorMessage name="numero" component="div" className="error-message" />
                                 </div>
-                                <div className="col-8 md:col-6" style={{ marginTop: "0.5rem" }}>
+                                <div className="col-8 md:col-5 sm:col-6" style={{ marginTop: "0.5rem" }}>
                                     <span className="p-float-label">
                                         <Field as={InputText} id="complemento" name="complemento" className="custom-step2-input" />
                                         <label htmlFor="complemento">{t('Complemento')}</label>
