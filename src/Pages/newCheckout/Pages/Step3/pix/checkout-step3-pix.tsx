@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { useTranslation } from 'react-i18next';
 
 interface PaymentData {
   player_id: number;
@@ -37,6 +38,7 @@ interface QRCodeLink {
 }
 
 export default function CheckoutStep3Pix({ paymentData }: { paymentData: PaymentData }) {
+  const { t } = useTranslation();
   const [pixCode, setPixCode] = useState('');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -74,6 +76,7 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             postal_code: paymentData.address.cep,
             country: 'BRA',
           },
+
         };
 
         console.log('Dados que serão enviados:', JSON.stringify(requestData));
@@ -115,7 +118,7 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
 
   const handlePixCodeClick = () => {
     navigator.clipboard.writeText(pixCode).then(() => {
-      toast.success('Código PIX copiado com sucesso');
+      toast.success(t('PixCodeCopied'));
     });
   };
 
@@ -143,11 +146,11 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
         ) : qrCodeUrl ? (
           <img src={qrCodeUrl} alt="QR Code" />
         ) : (
-          <p>QR Code não encontrado.</p>
+          <p>{t('QRCodeNotFound')}</p>
         )}
       </div>
       <div className="p-field">
-        <label htmlFor="pixCode">PIX Copia e Cola</label>
+        <label htmlFor="pixCode">{t('PixCopyPaste')}</label>
         <textarea
           id="pixCode"
           value={pixCode}
@@ -168,15 +171,15 @@ export default function CheckoutStep3Pix({ paymentData }: { paymentData: Payment
             strokeWidth={2}
             strokeWidthSecondary={2}
           />
-          <p className="waiting-payment">Aguardando Pagamento...</p>
+          <p className="waiting-payment">{t('WaitingPayment')}</p>
         </div>
       )}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar closeOnClick pauseOnHover />
-      <Dialog header="Cancelar Doação" visible={showConfirmation} onHide={cancelCancel} modal>
-        <p>Tem certeza que deseja cancelar a doação?</p>
+      <Dialog header={t('CancelDonation')} visible={showConfirmation} onHide={cancelCancel} modal>
+        <p>{t('CancelDonationConfirmation')}</p>
         <div className="confirmation-buttons" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
-          <Button label="Sim" icon="pi pi-check" onClick={confirmCancel} style={{ background: 'white', color: 'black', border: '1px solid black' }} />
-          <Button label="Não" icon="pi pi-times" onClick={cancelCancel} autoFocus className="p-button-secondary" style={{ background: 'black' }} />
+          <Button label={t('Yes')} icon="pi pi-check" onClick={confirmCancel} style={{ background: 'white', color: 'black', border: '1px solid black' }} />
+          <Button label={t('No')} icon="pi pi-times" onClick={cancelCancel} autoFocus className="p-button-secondary" style={{ background: 'black' }} />
         </div>
       </Dialog>
     </div>

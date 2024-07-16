@@ -14,10 +14,15 @@ import { Dialog } from 'primereact/dialog';
 import womanImage from '../../../../Shared/imgs/beautiful_druid_shop 1.svg';
 import logoImage from '../../../../Shared/imgs/image 1.svg';
 import companyLogo from '../../../../Shared/imgs/Group 71.svg';
+import brazilFlag from '../../../../Shared/imgs/Flag_of_Brazil.svg';
+import usFlag from '../../../../Shared/imgs/Flag_of_the_United_States.svg';
+import spainFlag from '../../../../Shared/imgs/Flag_of_Spain.svg';
+import { useTranslation, Trans } from 'react-i18next';
 
 console.log('API URL:', process.env.REACT_APP_API_URL);
 
 const CheckoutStep1: React.FC = () => {
+    const { t, i18n } = useTranslation();
     const [convertedCoin, setConvertedCoin] = useState<number>(0);
     const [donationValue, setDonationValue] = useState<number>(0);
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
@@ -25,14 +30,21 @@ const CheckoutStep1: React.FC = () => {
     const navigate = useNavigate();
     const { setPaymentData } = useCheckout();
 
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
+
     const initialValues = {
         name: '',
         value: 0,
     };
 
     const validationSchema = Yup.object({
-        name: Yup.string().required('Nome do Personagem é obrigatório'),
-        value: Yup.number().min(1, 'Valor da Doação deve ser maior que zero').required('Valor da Doação é obrigatório'),
+        name: Yup.string().required(t('CharacterNameRequired')),
+        value: Yup.number()
+            .min(2, t('DonationValueMin'))
+            .max(99998, t('DonationValueMax'))
+            .required(t('DonationValueRequired')),
     });
 
     const handleSubmit = async (values: typeof initialValues) => {
@@ -46,12 +58,12 @@ const CheckoutStep1: React.FC = () => {
                     player_name: response.data.name,
                     player_level: response.data.level,
                     donation_value: values.value,
-                    amount: Math.round(values.value),  // Garantir que amount é um inteiro positivo
+                    amount: Math.round(values.value),
                 });
                 setShowConfirmation(true);
             }
         } catch (error) {
-            toast.error('Nome do personagem não encontrado. Por favor, verifique e tente novamente.');
+            toast.error(t('CharacterNameNotFound'));
         }
     };
 
@@ -74,8 +86,15 @@ const CheckoutStep1: React.FC = () => {
                 <img src={womanImage} alt="Druid doing business" className="woman-image" />
             </div>
             <div className="p-col-12 p-md-5 form-container">
-                <div className="logo-top-container">
-                    <img src={logoImage} alt="White Kingdom Logo" className="logo-image" />
+                <div className="top-container">
+                    <div className="flags-container">
+                        <img src={brazilFlag} alt="Português" className="flag-icon" onClick={() => changeLanguage('pt')} />
+                        <img src={usFlag} alt="English" className="flag-icon" onClick={() => changeLanguage('en')} />
+                        <img src={spainFlag} alt="Español" className="flag-icon" onClick={() => changeLanguage('es')} />
+                    </div>
+                    <div className="logo-top-container">
+                        <img src={logoImage} alt="White Kingdom Logo" className="logo-image" />
+                    </div>
                 </div>
                 <Formik
                     initialValues={initialValues}
@@ -88,7 +107,7 @@ const CheckoutStep1: React.FC = () => {
                                 <div className="p-field">
                                     <span className="p-float-label">
                                         <Field as={InputText} id="characterName" name="name" className="custom-input" style={{ width: '100%' }} />
-                                        <label htmlFor="characterName">Nome do Personagem*</label>
+                                        <label htmlFor="characterName">{t('CharacterName')}*</label>
                                     </span>
                                     <ErrorMessage name="name" component="div" className="error-message" />
                                 </div>
@@ -106,17 +125,20 @@ const CheckoutStep1: React.FC = () => {
                                             style={{ width: '100%' }}
                                             className="custom-input"
                                         />
-                                        <label htmlFor="donationValue">Valor da Doação*</label>
+                                        <label htmlFor="donationValue">{t('DonationValue')}*</label>
                                     </span>
                                     <ErrorMessage name="value" component="div" className="error-message" />
                                 </div>
                                 <p className="description">
-                                    Agradecemos a sua doação! Com o valor de {formatCurrency(values.value ?? 0)} você está ajudando o White Kingdom Otserv com os custos de manutenção, infraestrutura, equipe de programadores e outros gastos.
-                                    A fim de retribuir o seu gesto, com esse valor estaremos disponibilizando a quantia de <span className="highlight">{convertedCoin}</span> Coins para seu personagem usufruir de bônus especiais dentro do jogo.
+                                    <Trans 
+                                        i18nKey="DonationMessage"
+                                        values={{ amount: formatCurrency(values.value ?? 0), coins: convertedCoin }}
+                                        components={{ span: <span className="highlight" /> }}
+                                    />
                                 </p>
                             </div>
                             <div className="button-container">
-                                <button type="submit" className="custom-button">PRÓXIMO</button>
+                                <button type="submit" className="custom-button">{t('Next')}</button>
                             </div>
                         </Form>
                     )}
@@ -125,12 +147,12 @@ const CheckoutStep1: React.FC = () => {
                     <img src={companyLogo} alt="Company Logo" className="company-logo" />
                 </div>
             </div>
-            <Dialog header="Confirme seu personagem" visible={showConfirmation} onHide={() => setShowConfirmation(false)} modal>
+            <Dialog header={t('ConfirmCharacter')} visible={showConfirmation} onHide={() => setShowConfirmation(false)} modal>
                 {playerData && (
                     <div>
-                        <p><strong>Nome:</strong> {playerData.name}</p>
-                        <p><strong>Level:</strong> {playerData.level}</p>
-                        <button onClick={confirmPlayer} className="custom-button">CONFIRMAR</button>
+                        <p><strong>{t('Name')}:</strong> {playerData.name}</p>
+                        <p><strong>{t('Level')}:</strong> {playerData.level}</p>
+                        <button onClick={confirmPlayer} className="custom-button">{t('Confirm')}</button>
                     </div>
                 )}
             </Dialog>
